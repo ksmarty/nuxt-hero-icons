@@ -21,7 +21,7 @@ export default defineComponent({
         path = SolidIcons[name];
         fill = 'fill="currentColor" viewBox="0 0 19 19"';
       }
-      const svg = `<svg ${fill} class="${class}"  aria-hidden="true"  xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}" /></svg>`;
+      const svg = `<svg ${fill} class="${this.class}"  aria-hidden="true"  xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}" /></svg>`;
       return svg;
     },
   },
