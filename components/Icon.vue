@@ -1,6 +1,6 @@
 <!-- Icons from https://heroicons.com/ -->
 <template>
-  <span v-html="getSVG(name)"></span>
+  <span :class="`h-${size} w-${size}`" v-html="getSVG(name)"></span>
 </template>
 <script>
 import { defineComponent, ref } from "vue";
@@ -11,7 +11,8 @@ export default defineComponent({
   props: {
     name: { type: String, default: "annotation", required: true },
     solid: { type: Boolean, default: false },
-    class: { type: String, default: "w-8 h-8" },
+    class: { type: String },
+    size: { type: Number, default: 8, required: true }
   },
   methods: {
     getSVG(name) {
@@ -21,11 +22,9 @@ export default defineComponent({
         path = SolidIcons[name];
         fill = 'fill="currentColor" viewBox="0 0 19 19"';
       }
-      const svg = `<svg ${fill} class="${this.class}"  aria-hidden="true"  xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}" /></svg>`;
+      const svg = `<svg ${fill} class="h-${this.size} w-${this.size} ${this.class}"  aria-hidden="true"  xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}" /></svg>`;
       return svg;
     },
   },
 });
 </script>
-
-<style></style>
