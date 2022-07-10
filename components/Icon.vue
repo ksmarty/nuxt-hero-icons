@@ -11,7 +11,7 @@ export default defineComponent({
   props: {
     name: { type: String, default: "annotation", required: true },
     solid: { type: Boolean, default: false },
-    class: { type: String },
+    class: { type: String, default: "w-8 h-8" },
   },
   methods: {
     getSVG(name) {
