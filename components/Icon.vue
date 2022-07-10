@@ -1,30 +1,40 @@
 <!-- Icons from https://heroicons.com/ -->
 <template>
-  <span :class="`h-${size} w-${size}`" v-html="getSVG(name)"></span>
+  <svg aria-hidden="true"
+       xmlns="http://www.w3.org/2000/svg"
+       v-bind="values">
+    <path stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          :d="getPath(name)" />
+  </svg>
 </template>
 <script>
 import { defineComponent, ref } from "vue";
 import OutlineIcons from "../outline";
 import SolidIcons from "../solid";
+
 export default defineComponent({
   name: "Icon",
   props: {
     name: { type: String, default: "annotation", required: true },
     solid: { type: Boolean, default: false },
-    class: { type: String },
     size: { type: Number, default: 8, required: true }
   },
-  methods: {
-    getSVG(name) {
-      let path = OutlineIcons[name];
-      let fill = 'fill="none" stroke="currentColor" viewBox="0 0 24 24"';
-      if (this.solid) {
-        path = SolidIcons[name];
-        fill = 'fill="currentColor" viewBox="0 0 19 19"';
+  data() {
+    return {
+      values: {
+        stroke: !this.solid ? 'currentColor' : '',
+        style: { height: (this.size / 4 + 'rem'), width: (this.size / 4 + 'rem') },
+        viewBox: this.solid ? '0 0 19 19' : '0 0 24 24',
+        fill: this.solid ? 'currentColor' : 'none',
       }
-      const svg = `<svg ${fill} class="h-${this.size} w-${this.size} ${this.class}"  aria-hidden="true"  xmlns="http://www.w3.org/2000/svg"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${path}" /></svg>`;
-      return svg;
-    },
+    }
   },
+  methods: {
+    getPath(name) {
+      return (this.solid ? SolidIcons : OutlineIcons)[name];
+    }
+  }
 });
 </script>
